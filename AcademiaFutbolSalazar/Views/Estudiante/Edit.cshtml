@@ -1,0 +1,64 @@
+﻿@model AcademiaFutbolSalazar.Models.Estudiante
+
+<h2 style="color: #FFD700;">Editar Estudiante</h2>
+
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <input asp-for="Id" type="hidden" />
+
+    <div class="form-group mt-3">
+        <label style="color: #FFD700;">Nombre</label>
+        <input asp-for="Nombre" class="form-control bg-dark text-white" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <label style="color: #FFD700;">Apellido</label>
+        <input asp-for="Apellido" class="form-control bg-dark text-white" />
+        <span asp-validation-for="Apellido" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <label style="color: #FFD700;">Fecha Nacimiento</label>
+        <input asp-for="FechaNacimiento" class="form-control bg-dark text-white" type="date" />
+        <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <label style="color: #FFD700;">Celular</label>
+        <input asp-for="Celular" class="form-control bg-dark text-white" />
+        <span asp-validation-for="Celular" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <label style="color: #FFD700;">Categoría</label>
+        <input asp-for="Categoria" class="form-control bg-dark text-white" />
+        <span asp-validation-for="Categoria" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <label style="color: #FFD700;">Posición</label>
+        <input asp-for="Posicion" class="form-control bg-dark text-white" />
+        <span asp-validation-for="Posicion" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <label style="color: #FFD700;">Entrenador</label>
+        <select asp-for="EntrenadorId" class="form-control bg-dark text-white">
+            @foreach (var entrenador in ViewBag.Entrenadores)
+            {
+                <option value="@entrenador.Id">@entrenador.Nombre @entrenador.Apellido</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group mt-3">
+        <label style="color: #FFD700;">Activo</label>
+        <input asp-for="Activo" class="form-check-input ms-2" type="checkbox" />
+    </div>
+
+    <hr style="border-color: #FFD700;">
+    <button type="submit" class="btn btn-danger">Guardar</button>
+    <a href="/Estudiante" class="btn btn-secondary">Volver</a>
+</form>

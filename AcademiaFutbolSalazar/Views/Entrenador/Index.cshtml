@@ -1,0 +1,44 @@
+﻿@model List<AcademiaFutbolSalazar.Models.Entrenador>
+
+<h2 style="color: #FFD700;">Lista de Entrenadores</h2>
+<a class="btn btn-danger" href="/Entrenador/Create">Nuevo Entrenador</a>
+
+<table class="table table-dark table-hover mt-3">
+    <thead>
+        <tr>
+            <th style="color: #FFD700;">Nombre</th>
+            <th style="color: #FFD700;">Apellido</th>
+            <th style="color: #FFD700;">Celular</th>
+            <th style="color: #FFD700;">Especialidad</th>
+            <th style="color: #FFD700;">Categoría</th>
+            <th style="color: #FFD700;">Activo</th>
+            <th style="color: #FFD700;">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Nombre</td>
+                <td>@item.Apellido</td>
+                <td>@item.Celular</td>
+                <td>@item.Especialidad</td>
+                <td>@item.Categoria</td>
+                <td>
+                    @if (item.Activo)
+                    {
+                        <span class="badge bg-success">Activo</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Inactivo</span>
+                    }
+                </td>
+                <td>
+                    <a class="btn btn-warning btn-sm" href="/Entrenador/Edit/@item.Id">Editar</a>
+                    <a class="btn btn-danger btn-sm" href="/Entrenador/Delete/@item.Id">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

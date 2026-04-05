@@ -1,0 +1,54 @@
+﻿@model AcademiaFutbolSalazar.Models.Entrenador
+
+<h2 style="color: #FFD700;">Editar Entrenador</h2>
+
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <input asp-for="Id" type="hidden" />
+
+    <div class="form-group mt-3">
+        <label style="color: #FFD700;">Nombre</label>
+        <input asp-for="Nombre" class="form-control bg-dark text-white" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <label style="color: #FFD700;">Apellido</label>
+        <input asp-for="Apellido" class="form-control bg-dark text-white" />
+        <span asp-validation-for="Apellido" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <label style="color: #FFD700;">Celular</label>
+        <input asp-for="Celular" class="form-control bg-dark text-white" />
+        <span asp-validation-for="Celular" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <label style="color: #FFD700;">Especialidad</label>
+        <input asp-for="Especialidad" class="form-control bg-dark text-white" />
+        <span asp-validation-for="Especialidad" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <label style="color: #FFD700;">Categoría</label>
+        <input asp-for="Categoria" class="form-control bg-dark text-white" />
+        <span asp-validation-for="Categoria" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <label style="color: #FFD700;">Fecha Contratación</label>
+        <input asp-for="FechaContratacion" class="form-control bg-dark text-white" type="date" />
+        <span asp-validation-for="FechaContratacion" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <label style="color: #FFD700;">Activo</label>
+        <input asp-for="Activo" class="form-check-input ms-2" type="checkbox" />
+    </div>
+
+    <hr style="border-color: #FFD700;">
+    <button type="submit" class="btn btn-danger">Guardar</button>
+    <a href="/Entrenador" class="btn btn-secondary">Volver</a>
+</form>
