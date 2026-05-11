@@ -5,6 +5,8 @@ using AcademiaFutbolSalazar.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddSession();
+
 builder.Services.AddDbContext<AcademiaContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -21,6 +23,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseSession();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -30,6 +34,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Login}/{action=Index}/{id?}");
+
 
 app.Run();

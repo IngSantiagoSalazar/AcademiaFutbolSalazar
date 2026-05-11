@@ -1,0 +1,22 @@
+﻿<h2 style="color: #FFD700;">Login</h2>
+
+<form method="post">
+
+    <div class="mb-3">
+        <label style="color: #FFD700;">Nombre</label>
+        <input name="nombre" class="form-control bg-dark text-white" />
+    </div>
+
+    <div class="mb-3">
+        <label style="color: #FFD700;">Celular</label>
+        <input name="celular" type="password" class="form-control bg-dark text-white" />
+    </div>
+
+    <button class="btn btn-danger">Ingresar</button>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="text-danger mt-2">@ViewBag.Error</div>
+    }
+
+</form>

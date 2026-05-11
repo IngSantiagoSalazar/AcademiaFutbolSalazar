@@ -16,6 +16,10 @@ namespace AcademiaFutbolSalazar.Controllers
 
         public IActionResult Index()
         {
+            if (HttpContext.Session.GetString("Usuario") == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var entrenadores = _context.Entrenadores
                 .Include(e => e.Estudiantes)
                 .ToList();
@@ -24,12 +28,21 @@ namespace AcademiaFutbolSalazar.Controllers
 
         public IActionResult Create()
         {
+            if (HttpContext.Session.GetString("Usuario") == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            ViewBag.Entrenadores = _context.Entrenadores.ToList();
             return View();
         }
 
         [HttpPost]
         public IActionResult Create(Entrenador entrenador)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(entrenador);
+            }
             _context.Entrenadores.Add(entrenador);
             _context.SaveChanges();
             return RedirectToAction("Index");
@@ -37,6 +50,10 @@ namespace AcademiaFutbolSalazar.Controllers
 
         public IActionResult Edit(int id)
         {
+            if (HttpContext.Session.GetString("Usuario") == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var entrenador = _context.Entrenadores.Find(id);
             ViewBag.Estudiantes = _context.Estudiantes.ToList();
             return View(entrenador);
@@ -45,6 +62,10 @@ namespace AcademiaFutbolSalazar.Controllers
         [HttpPost]
         public IActionResult Edit(Entrenador entrenador)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(entrenador);
+            }
             _context.Entrenadores.Update(entrenador);
             _context.SaveChanges();
             return RedirectToAction("Index");

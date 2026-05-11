@@ -16,6 +16,10 @@ namespace AcademiaFutbolSalazar.Controllers
 
         public IActionResult Index()
         {
+            if (HttpContext.Session.GetString("Usuario") == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var pagos = _context.Pagos
                 .Include(p => p.Estudiante)
                 .ToList();
@@ -24,6 +28,10 @@ namespace AcademiaFutbolSalazar.Controllers
 
         public IActionResult Create()
         {
+            if (HttpContext.Session.GetString("Usuario") == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             ViewBag.Estudiantes = _context.Estudiantes.ToList();
             return View();
         }
@@ -38,6 +46,10 @@ namespace AcademiaFutbolSalazar.Controllers
 
         public IActionResult Edit(int id)
         {
+            if (HttpContext.Session.GetString("Usuario") == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var pago = _context.Pagos.Find(id);
             ViewBag.Estudiantes = _context.Estudiantes.ToList();
             return View(pago);

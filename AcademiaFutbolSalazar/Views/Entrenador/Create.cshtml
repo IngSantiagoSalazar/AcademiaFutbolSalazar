@@ -1,52 +1,62 @@
 ﻿@model AcademiaFutbolSalazar.Models.Entrenador
 
-<h2 style="color: #FFD700;">Crear Entrenador</h2>
+<div class="container mt-4">
+    <h2 style="color: #FFD700;">Crear Entrenador</h2>
+    <form asp-action="Create" method="post">
 
-<form asp-action="Create" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="mb-3">
+            <label style="color: #FFD700;">Nombre</label>
+            <input asp-for="Nombre" class="form-control bg-dark text-white" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
 
-    <div class="form-group mt-3">
-        <label style="color: #FFD700;">Nombre</label>
-        <input asp-for="Nombre" class="form-control bg-dark text-white" />
-        <span asp-validation-for="Nombre" class="text-danger"></span>
-    </div>
+        <div class="mb-3">
+            <label style="color: #FFD700;">Apellido</label>
+            <input asp-for="Apellido" class="form-control bg-dark text-white" />
+            <span asp-validation-for="Apellido" class="text-danger"></span>
+        </div>
 
-    <div class="form-group mt-3">
-        <label style="color: #FFD700;">Apellido</label>
-        <input asp-for="Apellido" class="form-control bg-dark text-white" />
-        <span asp-validation-for="Apellido" class="text-danger"></span>
-    </div>
+        <div class="mb-3">
+            <label style="color: #FFD700;">Celular</label>
+            <input asp-for="Celular" class="form-control bg-dark text-white" />
+            <span asp-validation-for="Celular" class="text-danger"></span>
+        </div>
 
-    <div class="form-group mt-3">
-        <label style="color: #FFD700;">Celular</label>
-        <input asp-for="Celular" class="form-control bg-dark text-white" />
-        <span asp-validation-for="Celular" class="text-danger"></span>
-    </div>
+        <div class="mb-3">
+            <label style="color: #FFD700;">Especialidad</label>
+            <select asp-for="Especialidad" class="form-control bg-dark text-white">
+                <option value="">Seleccione su especialidad </option>
+                <option value="Delantero">Delantero</option>
+                <option value="Mediocampista">Mediocampista</option>
+                <option value="Defensa">Defensa</option>
+                <option value="Portero">Portero</option>
+            </select>
+            
+        <div class="mb-3">
+            <label style="color: #FFD700;">Categoría</label>
+            <select asp-for="Categoria" class="form-control bg-dark text-white">
+                <option value="">Seleccione una Categoría</option>
+                <option value="Sub-13">Sub-13</option>
+                <option value="Sub-15">Sub-15</option>
+                <option value="Sub-17">Sub-17</option>
+                <option value="Sub-19">Sub-19</option>
+            </select>
 
-    <div class="form-group mt-3">
-        <label style="color: #FFD700;">Especialidad</label>
-        <input asp-for="Especialidad" class="form-control bg-dark text-white" />
-        <span asp-validation-for="Especialidad" class="text-danger"></span>
-    </div>
+        </div>
 
-    <div class="form-group mt-3">
-        <label style="color: #FFD700;">Categoría</label>
-        <input asp-for="Categoria" class="form-control bg-dark text-white" />
-        <span asp-validation-for="Categoria" class="text-danger"></span>
-    </div>
+        <div class="mb-3">
+            <label style="color: #FFD700;">Fecha Contratación</label>
+            <input asp-for="FechaContratacion" class="form-control bg-dark text-white" type="date" />
+            <span asp-validation-for="FechaContratacion" class="text-danger"></span>
+        </div>
 
-    <div class="form-group mt-3">
-        <label style="color: #FFD700;">Fecha Contratación</label>
-        <input asp-for="FechaContratacion" class="form-control bg-dark text-white" type="date" />
-        <span asp-validation-for="FechaContratacion" class="text-danger"></span>
-    </div>
+        <div class="mb-3">
+            <label style="color: #FFD700;">Activo</label>
+            <input asp-for="Activo" class="form-check-input ms-2" type="checkbox" />
+        </div>
 
-    <div class="form-group mt-3">
-        <label style="color: #FFD700;">Activo</label>
-        <input asp-for="Activo" class="form-check-input ms-2" type="checkbox" />
-    </div>
-
-    <hr style="border-color: #FFD700;">
-    <button type="submit" class="btn btn-danger">Guardar</button>
-    <a href="/Entrenador" class="btn btn-secondary">Volver</a>
-</form>
+        <hr style="border-color: #FFD700;">
+        <button type="submit" class="btn btn-danger">Guardar</button>
+        <a href="/Entrenador" class="btn btn-secondary">Volver</a>
+    </form>
+</div>

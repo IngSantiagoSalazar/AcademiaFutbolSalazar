@@ -3,7 +3,7 @@
 <h2 style="color: #FFD700;">Editar Estudiante</h2>
 
 <form asp-action="Edit" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <input asp-for="Id" type="hidden" />
 
@@ -31,16 +31,27 @@
         <span asp-validation-for="Celular" class="text-danger"></span>
     </div>
 
-    <div class="form-group mt-3">
+    <div class="mb-3">
         <label style="color: #FFD700;">Categoría</label>
-        <input asp-for="Categoria" class="form-control bg-dark text-white" />
-        <span asp-validation-for="Categoria" class="text-danger"></span>
+        <select asp-for="Categoria" class="form-control bg-dark text-white">
+            <option value="">Seleccione una Categoría</option>
+            <option value="Sub-13">Sub-13</option>
+            <option value="Sub-15">Sub-15</option>
+            <option value="Sub-17">Sub-17</option>
+            <option value="Sub-19">Sub-19</option>
+        </select>
     </div>
 
-    <div class="form-group mt-3">
-        <label style="color: #FFD700;">Posición</label>
-        <input asp-for="Posicion" class="form-control bg-dark text-white" />
-        <span asp-validation-for="Posicion" class="text-danger"></span>
+    <div class="mb-3">
+        <label style="color: #FFD700;">Posicion</label>
+        <select asp-for="Posicion" class="form-control bg-dark text-white">
+            <option value="">Seleccione una Posicion</option>
+            <option value="Delantero">Delantero</option>
+            <option value="Mediocampista">Mediocampista</option>
+            <option value="Defensa">Defensa</option>
+            <option value="Portero">Portero</option>
+        </select>
+
     </div>
 
     <div class="form-group mt-3">

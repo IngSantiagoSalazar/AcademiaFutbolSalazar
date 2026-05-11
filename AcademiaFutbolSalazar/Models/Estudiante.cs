@@ -33,7 +33,7 @@ namespace AcademiaFutbolSalazar.Models
         public DateTime FechaInscripcion { get; set; } = DateTime.Now;
 
         public int EntrenadorId { get; set; }
-        public Entrenador Entrenador { get; set; }
+        public Entrenador? Entrenador { get; set; }
 
         [Required]
         public bool Activo { get; set; } = true;
