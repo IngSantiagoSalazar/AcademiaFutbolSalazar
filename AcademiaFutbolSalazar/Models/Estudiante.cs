@@ -31,6 +31,9 @@ namespace AcademiaFutbolSalazar.Models
         public string Posicion { get; set; }
 
         public DateTime FechaInscripcion { get; set; } = DateTime.Now;
+        [Required]
+        [MinLength(4, ErrorMessage = "La clave debe tener al menos 4 caracteres")]
+        public string clave { get; set; }
 
         public int EntrenadorId { get; set; }
         public Entrenador? Entrenador { get; set; }

@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using AcademiaFutbolSalazar.Data;
+﻿using AcademiaFutbolSalazar.Data;
+using AcademiaFutbolSalazar.Helpers;
 using AcademiaFutbolSalazar.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace AcademiaFutbolSalazar.Controllers
 {
@@ -44,6 +46,8 @@ namespace AcademiaFutbolSalazar.Controllers
                 ViewBag.Entrenadores = _context.Entrenadores.ToList(); 
                 return View(estudiante);
             }
+            estudiante.clave = HashHelper.obtenerHash(estudiante.clave);
+
             _context.Estudiantes.Add(estudiante);
             _context.SaveChanges();
             return RedirectToAction("Index");
@@ -74,6 +78,15 @@ namespace AcademiaFutbolSalazar.Controllers
 
         public IActionResult Delete(int id)
         {
+            if (HttpContext.Session.GetString("Usuario") == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            var entrenador = HttpContext.Session.GetString("Entrenador");
+            if(entrenador != entrenador)
+            {                
+             return RedirectToAction("Index");
+            }
             var estudiante = _context.Estudiantes.Find(id);
             _context.Estudiantes.Remove(estudiante);
             _context.SaveChanges();

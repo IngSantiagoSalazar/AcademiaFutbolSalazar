@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using AcademiaFutbolSalazar.Data;
 using AcademiaFutbolSalazar.Models;
+using AcademiaFutbolSalazar.Helpers;
 
 namespace AcademiaFutbolSalazar.Controllers
 {
@@ -43,6 +44,7 @@ namespace AcademiaFutbolSalazar.Controllers
             {
                 return View(entrenador);
             }
+            entrenador.clave = HashHelper.obtenerHash(entrenador.clave);
             _context.Entrenadores.Add(entrenador);
             _context.SaveChanges();
             return RedirectToAction("Index");

@@ -26,6 +26,10 @@ namespace AcademiaFutbolSalazar.Models
         public string Categoria { get; set; }
 
         public DateTime FechaContratacion { get; set; }
+        [Required]
+        [MinLength(4,ErrorMessage = "La clave debe tener al menos 4 caracteres")]
+        public string clave { get; set; }
+
 
         public List<Estudiante> Estudiantes { get; set; } = new List<Estudiante>();
 

@@ -3,6 +3,7 @@
 <div class="container mt-4">
     <h2 style="color: #FFD700;">Crear Entrenador</h2>
     <form asp-action="Create" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
 
         <div class="mb-3">
             <label style="color: #FFD700;">Nombre</label>
@@ -49,6 +50,11 @@
             <input asp-for="FechaContratacion" class="form-control bg-dark text-white" type="date" />
             <span asp-validation-for="FechaContratacion" class="text-danger"></span>
         </div>
+            <div class="mb-3">
+                <label style="color: #FFD700;">Clave</label>
+                <input asp-for="clave" type="password" class="form-control bg-dark text-white" />
+                <span asp-validation-for="clave" class="text-danger"></span>
+            </div>
 
         <div class="mb-3">
             <label style="color: #FFD700;">Activo</label>

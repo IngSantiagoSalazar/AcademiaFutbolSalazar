@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using AcademiaFutbolSalazar.Data;
+﻿using AcademiaFutbolSalazar.Data;
+using AcademiaFutbolSalazar.Helpers;
 using AcademiaFutbolSalazar.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AcademiaFutbolSalazar.Controllers
 {
@@ -19,16 +20,18 @@ namespace AcademiaFutbolSalazar.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(string nombre, string celular)
+        public IActionResult Index(string nombre, string clave)
         {
-            var entrenador = _context.Entrenadores
-                .FirstOrDefault(e => e.Nombre == nombre && e.Celular == celular);
+            string claveHash = HashHelper.obtenerHash(clave);
+
+            var entrenador = _context.Entrenadores.ToList()
+                .FirstOrDefault(e => e.Nombre.Trim() == nombre.Trim() && e.clave == claveHash);
 
             if (entrenador != null)
             {
-                HttpContext.Session.SetString("Entrenador", entrenador.Nombre);
+                HttpContext.Session.SetString("Usuario", entrenador.Nombre);
                 HttpContext.Session.SetString("Especialidad", entrenador.Especialidad);
-                return RedirectToAction("Index", "Estudiante");
+                return RedirectToAction("Index", "Home");
             }
 
             ViewBag.Error = "Credenciales incorrectas";

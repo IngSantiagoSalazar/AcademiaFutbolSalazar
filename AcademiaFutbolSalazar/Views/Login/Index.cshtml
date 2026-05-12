@@ -1,15 +1,14 @@
 ﻿<h2 style="color: #FFD700;">Login</h2>
 
-<form method="post">
-
+<form method="post" asp-action="Index" asp-controller="Login">
     <div class="mb-3">
         <label style="color: #FFD700;">Nombre</label>
         <input name="nombre" class="form-control bg-dark text-white" />
     </div>
 
     <div class="mb-3">
-        <label style="color: #FFD700;">Celular</label>
-        <input name="celular" type="password" class="form-control bg-dark text-white" />
+        <label style="color: #FFD700;">Clave</label>
+        <input name="clave" type="password" class="form-control bg-dark text-white" />
     </div>
 
     <button class="btn btn-danger">Ingresar</button>
