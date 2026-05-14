@@ -19,16 +19,21 @@ namespace AcademiaFutbolSalazar.Models
         [RegularExpression(@"^3\d{9}$",
             ErrorMessage = "El celular debe estar entre 3000000000 y 3999999999")]
         public string Celular { get; set; }
+        [Required]
 
         [StringLength(100)]
         public string Especialidad { get; set; }
+        [Required]
 
         public string Categoria { get; set; }
+        [Required]
 
         public DateTime FechaContratacion { get; set; }
         [Required]
         [MinLength(4,ErrorMessage = "La clave debe tener al menos 4 caracteres")]
         public string clave { get; set; }
+        [Required]
+        public string ImagenUrl { get; set; }
 
 
         public List<Estudiante> Estudiantes { get; set; } = new List<Estudiante>();

@@ -2,8 +2,8 @@
 
 <div class="container mt-4">
     <h2 style="color: #FFD700;">Crear Entrenador</h2>
-    <form asp-action="Create" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+      <div asp-validation-summary="All" class="text-danger"></div>
 
         <div class="mb-3">
             <label style="color: #FFD700;">Nombre</label>
@@ -27,11 +27,12 @@
             <label style="color: #FFD700;">Especialidad</label>
             <select asp-for="Especialidad" class="form-control bg-dark text-white">
                 <option value="">Seleccione su especialidad </option>
-                <option value="Delantero">Delantero</option>
-                <option value="Mediocampista">Mediocampista</option>
-                <option value="Defensa">Defensa</option>
-                <option value="Portero">Portero</option>
+                <option value="Entrenador General">Entrenador General</option>
+                <option value="Fisiterapeuta">Fisiterapeuta</option>
+                <option value="Preparador Fisico">Preparador Fisico</option>
+                <option value="Psicologia Deportiva">Psicologia Deportiva</option>
             </select>
+            </div>
             
         <div class="mb-3">
             <label style="color: #FFD700;">Categoría</label>
@@ -60,6 +61,10 @@
             <label style="color: #FFD700;">Activo</label>
             <input asp-for="Activo" class="form-check-input ms-2" type="checkbox" />
         </div>
+            <div class="mb-3">
+                <label style="color: #FFD700;">Imagen</label>
+                <input type="file" name="imagen" class="form-control bg-dark text-white" />
+            </div>
 
         <hr style="border-color: #FFD700;">
         <button type="submit" class="btn btn-danger">Guardar</button>

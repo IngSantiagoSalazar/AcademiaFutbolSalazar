@@ -1,49 +1,53 @@
 ﻿@model List<AcademiaFutbolSalazar.Models.Estudiante>
 
-<h2 style="color: #FFD700;">Lista de Estudiantes</h2>
-<a class="btn btn-danger" href="/Estudiante/Create">Nuevo Estudiante</a>
+<div class="container mt-4">
 
-<table class="table table-dark table-hover mt-3">
-    <thead>
-        <tr>
-            <th style="color: #FFD700;">Nombre</th>
-            <th style="color: #FFD700;">Apellido</th>
-            <th style="color: #FFD700;">Celular</th>
-            <th style="color: #FFD700;">Posición</th>
-            <th style="color: #FFD700;">Categoría</th>
-            <th style="color: #FFD700;">Entrenador</th>
-            <th style="color: #FFD700;">Activo</th>
-            <th style="color: #FFD700;">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
+    <h2 class="mb-4 text-center" style="color: #FFD700;">Estudiantes</h2>
+    <a class="btn btn-danger mb-3" href="/Estudiante/Create">
+        + Nuevo Estudiante
+    </a>
+    <a class="btn btn-success mb-3" href="/Estudiante/VerPagos">
+        💰 Ver Pagos Pendientes
+    </a>
+
+    <div class="row">
         @foreach (var item in Model)
         {
-            <tr>
-                <td>@item.Nombre</td>
-                <td>@item.Apellido</td>
-                <td>@item.Celular</td>
-                <td>@item.Posicion</td>
-                <td>@item.Categoria</td>
-                <td>@item.Entrenador?.Nombre</td>
-                <td>
-                    @if (item.Activo)
-                    {
-                        <span class="badge bg-success">Activo</span>
-                    }
-                    else
-                    {
-                        <span class="badge bg-danger">Inactivo</span>
-                    }
-                </td>
-                <td>
-                    <a class="btn btn-warning btn-sm" href="/Estudiante/Edit/@item.Id">Editar</a>
-             
-                    
-                        <a class="btn btn-danger btn-sm" href="/Estudiante/Delete/@item.Id">Eliminar</a>
-                    
-                </td>
-            </tr>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 shadow bg-dark">
+
+                    <img src="@item.ImagenUrl"
+                         class="card-img-top"
+                         style="height:250px; width:100%; object-fit:cover; object-position:top;" />
+
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: #FFD700;">@item.Nombre @item.Apellido</h5>
+
+                        <p class="card-text text-white">
+                            Categoría: @item.Categoria <br />
+                            Celular: @item.Celular <br />
+                            Entrenador: @item.Entrenador?.Nombre @item.Entrenador?.Apellido
+                        </p>
+
+                        <a href="/Estudiante/Edit/@item.Id"
+                           class="btn btn-warning btn-sm">Editar</a>
+
+                        @if (Context.Session.GetString("Rol") == "Entrenador")
+                        {
+                            <a href="/Estudiante/Delete/@item.Id"
+                               class="btn btn-danger btn-sm">Eliminar</a>
+                        }
+
+                        <hr style="border-color: #FFD700;">
+                        <form asp-action="AgregarPago" method="post">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <input type="number" name="monto" value="50000" min="1" class="form-control mb-2 bg-dark text-white" />
+                            <button class="btn btn-success btn-sm w-100">💰 Registrar Pago</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+</div>

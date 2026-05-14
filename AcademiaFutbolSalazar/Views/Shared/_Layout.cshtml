@@ -25,7 +25,13 @@
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Entrenador" asp-action="Index">Entrenadores</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Estudiante" asp-action="Index">Estudiantes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Pago" asp-action="Index">Pagos</a>
                         </li>
                     </ul>
                     <a href="/Login/Logout" style="color: #FFD700; border: 1px solid #FFD700;" class="btn ms-auto fw-bold">
@@ -40,11 +46,6 @@
             @RenderBody()
         </main>
     </div>
-    <footer class="border-top footer" style="color: #aaaaaa;">
-        <div class="container">
-            &copy; 2026 - AcademiaFutbolSalazar - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>

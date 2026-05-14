@@ -2,7 +2,7 @@
 
 <h2 style="color: #FFD700;">Editar Entrenador</h2>
 
-<form asp-action="Edit" method="post">
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input asp-for="Id" type="hidden" />
 
@@ -28,11 +28,12 @@
         <label style="color: #FFD700;">Especialidad</label>
         <select asp-for="Especialidad" class="form-control bg-dark text-white">
             <option value="">Seleccione su especialidad </option>
-            <option value="Delantero">Delantero</option>
-            <option value="Mediocampista">Mediocampista</option>
-            <option value="Defensa">Defensa</option>
-            <option value="Portero">Portero</option>
+            <option value="Entrenador General">Entrenador General</option>
+            <option value="Fisiterapeuta">Fisiterapeuta</option>
+            <option value="Preparador Fisico">Preparador Fisico</option>
+            <option value="Psicologia Deportiva">Psicologia Deportiva</option>
         </select>
+    </div>
 
         <div class="mb-3">
             <label style="color: #FFD700;">Categoría</label>
@@ -43,6 +44,7 @@
                 <option value="Sub-17">Sub-17</option>
                 <option value="Sub-19">Sub-19</option>
             </select>
+            </div>
 
     <div class="form-group mt-3">
         <label style="color: #FFD700;">Fecha Contratación</label>
@@ -54,11 +56,15 @@
                 <input asp-for="clave" type="password" class="form-control bg-dark text-white" />
             </div>
 
-    <div class="form-group mt-3">
-        <label style="color: #FFD700;">Activo</label>
-        <input asp-for="Activo" class="form-check-input ms-2" type="checkbox" />
+    <div class="mb-3">
+        <label style="color: #FFD700;">Imagen actual</label><br />
+        <img src="@Model.ImagenUrl" width="150" class="mb-2" />
     </div>
 
+    <div class="mb-3">
+        <label style="color: #FFD700;">Nueva imagen (opcional)</label>
+        <input type="file" name="imagen" class="form-control bg-dark text-white" />
+    </div>
     <hr style="border-color: #FFD700;">
     <button type="submit" class="btn btn-danger">Guardar</button>
     <a href="/Entrenador" class="btn btn-secondary">Volver</a>

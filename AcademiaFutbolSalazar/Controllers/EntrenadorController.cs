@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using AcademiaFutbolSalazar.Data;
-using AcademiaFutbolSalazar.Models;
+﻿using AcademiaFutbolSalazar.Data;
 using AcademiaFutbolSalazar.Helpers;
+using AcademiaFutbolSalazar.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace AcademiaFutbolSalazar.Controllers
 {
@@ -21,9 +22,7 @@ namespace AcademiaFutbolSalazar.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
-            var entrenadores = _context.Entrenadores
-                .Include(e => e.Estudiantes)
-                .ToList();
+            var entrenadores = _context.Entrenadores.ToList(); // ✅ sin Include
             return View(entrenadores);
         }
 
@@ -38,37 +37,71 @@ namespace AcademiaFutbolSalazar.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Entrenador entrenador)
+        public IActionResult Create(Entrenador entrenador, IFormFile imagen)
         {
-            if (!ModelState.IsValid)
+            
+
+            if (imagen != null)
             {
-                return View(entrenador);
+                var ruta = Path.Combine(Directory.GetCurrentDirectory(),
+                    "wwwroot/images", imagen.FileName);
+
+                using (var stream = new FileStream(ruta, FileMode.Create))
+                {
+                    imagen.CopyTo(stream);
+                }
+
+                entrenador.ImagenUrl = "/images/" + imagen.FileName;
             }
+
             entrenador.clave = HashHelper.obtenerHash(entrenador.clave);
+
             _context.Entrenadores.Add(entrenador);
             _context.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
         public IActionResult Edit(int id)
         {
-            if (HttpContext.Session.GetString("Usuario") == null)
-            {
-                return RedirectToAction("Index", "Login");
-            }
+            
             var entrenador = _context.Entrenadores.Find(id);
             ViewBag.Estudiantes = _context.Estudiantes.ToList();
             return View(entrenador);
         }
 
+        // ACTUALIZAR ENTRENADOR
         [HttpPost]
-        public IActionResult Edit(Entrenador entrenador)
+        public IActionResult Edit(Entrenador entrenador, IFormFile imagen)
         {
-            if (!ModelState.IsValid)
+            var entrenadorBD = _context.Entrenadores.Find(entrenador.Id);
+            if (entrenadorBD == null)
+                return NotFound();
+
+            // Actualizar datos normales
+            entrenadorBD.Nombre = entrenador.Nombre;
+            entrenadorBD.Apellido = entrenador.Apellido;
+            entrenadorBD.Celular = entrenador.Celular;
+            entrenadorBD.Especialidad = entrenador.Especialidad;
+            entrenadorBD.Categoria = entrenador.Categoria;
+            entrenadorBD.FechaContratacion = entrenador.FechaContratacion;
+            entrenadorBD.Activo = entrenador.Activo;
+
+            // Si sube nueva imagen
+            if (imagen != null)
             {
-                return View(entrenador);
+                var carpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
+
+                var ruta = Path.Combine(carpeta, imagen.FileName);
+
+                using (var stream = new FileStream(ruta, FileMode.Create))
+                {
+                    imagen.CopyTo(stream);
+                }
+
+                entrenadorBD.ImagenUrl = "/images/" + imagen.FileName;
             }
-            _context.Entrenadores.Update(entrenador);
+
             _context.SaveChanges();
             return RedirectToAction("Index");
         }

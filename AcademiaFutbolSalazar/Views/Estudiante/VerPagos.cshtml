@@ -1,0 +1,26 @@
+﻿@model List<(AcademiaFutbolSalazar.Models.Estudiante estudiante, double monto)>
+
+<div class="container mt-4">
+    <h2 style="color: #FFD700;">Pagos Pendientes</h2>
+
+    <table class="table table-dark table-hover mt-3">
+        <thead>
+            <tr>
+                <th style="color: #FFD700;">Estudiante</th>
+                <th style="color: #FFD700;">Monto</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.estudiante.Nombre @item.estudiante.Apellido</td>
+                    <td>$@item.monto</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a href="/Estudiante/ConfirmarPagos" class="btn btn-danger">✅ Confirmar Pagos</a>
+    <a href="/Estudiante" class="btn btn-secondary">Volver</a>
+</div>

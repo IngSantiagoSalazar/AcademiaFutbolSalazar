@@ -24,16 +24,17 @@ namespace AcademiaFutbolSalazar.Models
             ErrorMessage = "El celular debe estar entre 3000000000 y 3999999999")]
         public string Celular { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string Categoria { get; set; }
 
-        [StringLength(50)]
-        public string Posicion { get; set; }
-
         public DateTime FechaInscripcion { get; set; } = DateTime.Now;
+
         [Required]
         [MinLength(4, ErrorMessage = "La clave debe tener al menos 4 caracteres")]
         public string clave { get; set; }
+
+        public string? ImagenUrl { get; set; }
 
         public int EntrenadorId { get; set; }
         public Entrenador? Entrenador { get; set; }
