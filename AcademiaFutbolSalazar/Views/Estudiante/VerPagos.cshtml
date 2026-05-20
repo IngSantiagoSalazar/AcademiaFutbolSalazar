@@ -1,4 +1,4 @@
-﻿@model List<(AcademiaFutbolSalazar.Models.Estudiante estudiante, double monto)>
+﻿@model List<(AcademiaFutbolSalazar.Models.Estudiante estudiante, double monto, string mes)>
 
 <div class="container mt-4">
     <h2 style="color: #FFD700;">Pagos Pendientes</h2>
@@ -7,7 +7,9 @@
         <thead>
             <tr>
                 <th style="color: #FFD700;">Estudiante</th>
+                <th style="color: #FFD700;">Mes</th>
                 <th style="color: #FFD700;">Monto</th>
+                <th style="color: #FFD700;">¿Pagado?</th>
             </tr>
         </thead>
         <tbody>
@@ -15,7 +17,12 @@
             {
                 <tr>
                     <td>@item.estudiante.Nombre @item.estudiante.Apellido</td>
+                    <td>@item.mes</td>
                     <td>$@item.monto</td>
+                    <td>
+                        <input type="checkbox" disabled checked />
+                        <span class="text-warning">Pendiente de confirmar</span>
+                    </td>
                 </tr>
             }
         </tbody>

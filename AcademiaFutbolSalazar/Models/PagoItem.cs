@@ -4,5 +4,6 @@
     {
         public int EstudianteId { get; set; }
         public double Monto { get; set; }
+        public string Mes { get; set; }
     }
 }

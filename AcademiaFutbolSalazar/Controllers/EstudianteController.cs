@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
-
 namespace AcademiaFutbolSalazar.Controllers
 {
     public class EstudianteController : Controller
@@ -35,7 +34,7 @@ namespace AcademiaFutbolSalazar.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
-            ViewBag.Entrenadores = _context.Entrenadores.ToList(); // ✅
+            ViewBag.Entrenadores = _context.Entrenadores.ToList();
             return View();
         }
 
@@ -55,13 +54,14 @@ namespace AcademiaFutbolSalazar.Controllers
                 estudiante.ImagenUrl = "/images/" + imagen.FileName;
             }
 
-            estudiante.clave = HashHelper.obtenerHash(estudiante.clave); // ✅ hash
+            estudiante.clave = HashHelper.obtenerHash(estudiante.clave);
 
             _context.Estudiantes.Add(estudiante);
             _context.SaveChanges();
 
             return RedirectToAction("Index");
         }
+
         public IActionResult Edit(int id)
         {
             if (HttpContext.Session.GetString("Usuario") == null)
@@ -72,6 +72,7 @@ namespace AcademiaFutbolSalazar.Controllers
             ViewBag.Entrenadores = _context.Entrenadores.ToList();
             return View(estudiante);
         }
+
         [HttpPost]
         public IActionResult Edit(Estudiante estudiante, IFormFile imagen)
         {
@@ -79,7 +80,6 @@ namespace AcademiaFutbolSalazar.Controllers
             if (estudianteBD == null)
                 return NotFound();
 
-            // Actualizar datos normales
             estudianteBD.Nombre = estudiante.Nombre;
             estudianteBD.Apellido = estudiante.Apellido;
             estudianteBD.FechaNacimiento = estudiante.FechaNacimiento;
@@ -88,7 +88,6 @@ namespace AcademiaFutbolSalazar.Controllers
             estudianteBD.EntrenadorId = estudiante.EntrenadorId;
             estudianteBD.Activo = estudiante.Activo;
 
-            // Si sube nueva imagen
             if (imagen != null)
             {
                 var carpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
@@ -112,18 +111,25 @@ namespace AcademiaFutbolSalazar.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
-            var entrenador = HttpContext.Session.GetString("Entrenador");
-            if(entrenador != entrenador)
-            {                
-             return RedirectToAction("Index");
-            }
             var estudiante = _context.Estudiantes.Find(id);
             _context.Estudiantes.Remove(estudiante);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-        public IActionResult AgregarPago(int id, double monto)
+
+        [HttpPost]
+        public IActionResult AgregarPago(int id, double monto, string mes)
         {
+            // VALIDAR QUE NO HAYA PAGADO ESE MES YA EN LA BD
+            var pagoExiste = _context.Pagos
+                .Any(p => p.EstudianteId == id && p.Descripcion == mes && p.Pagado == true);
+
+            if (pagoExiste)
+            {
+                TempData["Error"] = "Este estudiante ya pagó " + mes;
+                return RedirectToAction("Index");
+            }
+
             var pagoJson = HttpContext.Session.GetString("Pagos");
             List<PagoItem> pagos;
 
@@ -141,24 +147,28 @@ namespace AcademiaFutbolSalazar.Controllers
             if (item != null)
             {
                 item.Monto = monto;
+                item.Mes = mes;
             }
             else
             {
                 pagos.Add(new PagoItem
                 {
                     EstudianteId = id,
-                    Monto = monto
+                    Monto = monto,
+                    Mes = mes
                 });
             }
 
             HttpContext.Session.SetString("Pagos", JsonSerializer.Serialize(pagos));
+
+            TempData["Mensaje"] = "Pago de " + mes + " agregado correctamente";
             return RedirectToAction("Index");
         }
 
         public IActionResult VerPagos()
         {
             var pagoJson = HttpContext.Session.GetString("Pagos");
-            List<(Estudiante estudiante, double monto)> lista = new();
+            List<(Estudiante estudiante, double monto, string mes)> lista = new();
 
             if (pagoJson != null)
             {
@@ -169,7 +179,7 @@ namespace AcademiaFutbolSalazar.Controllers
                     var estudiante = _context.Estudiantes.Find(item.EstudianteId);
                     if (estudiante != null)
                     {
-                        lista.Add((estudiante, item.Monto));
+                        lista.Add((estudiante, item.Monto, item.Mes));
                     }
                 }
             }
@@ -194,7 +204,8 @@ namespace AcademiaFutbolSalazar.Controllers
                     Monto = item.Monto,
                     FechaPago = DateTime.Now,
                     Pagado = true,
-                    Descripcion = "Mensualidad"
+                    Descripcion = item.Mes,
+                    MetodoPago = "Efectivo"
                 };
 
                 _context.Pagos.Add(pago);
