@@ -37,12 +37,12 @@
                             Celular: @item.Celular <br />
                             Entrenador: @item.Entrenador?.Nombre @item.Entrenador?.Apellido
                         </p>
-
+                        @if (Context.Session.GetString("Especialidad") == "Entrenador General")
+                        {
                         <a href="/Estudiante/Edit/@item.Id"
                            class="btn btn-warning btn-sm">Editar</a>
 
-                        @if (Context.Session.GetString("Rol") == "Entrenador")
-                        {
+                  
                             <a href="/Estudiante/Delete/@item.Id"
                                class="btn btn-danger btn-sm">Eliminar</a>
                         }

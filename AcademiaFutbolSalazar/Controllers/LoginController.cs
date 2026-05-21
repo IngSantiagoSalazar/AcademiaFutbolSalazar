@@ -30,14 +30,24 @@ namespace AcademiaFutbolSalazar.Controllers
             if (entrenador != null)
             {
                 HttpContext.Session.SetString("Usuario", entrenador.Nombre);
-                HttpContext.Session.SetString("Especialidad", entrenador.Especialidad);
+                HttpContext.Session.SetString("Rol", "Entrenador");
+                HttpContext.Session.SetString("Especialidad", entrenador.Especialidad ?? ""); // ✅
+                return RedirectToAction("Index", "Home");
+            }
+
+            var estudiante = _context.Estudiantes.ToList()
+                .FirstOrDefault(e => e.Nombre.Trim() == nombre.Trim() && e.clave == claveHash);
+
+            if (estudiante != null)
+            {
+                HttpContext.Session.SetString("Usuario", estudiante.Nombre);
+                HttpContext.Session.SetString("Rol", "Estudiante");
                 return RedirectToAction("Index", "Home");
             }
 
             ViewBag.Error = "Credenciales incorrectas";
             return View();
         }
-
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();

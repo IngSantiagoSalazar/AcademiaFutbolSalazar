@@ -1,7 +1,6 @@
 ﻿@model List<AcademiaFutbolSalazar.Models.Pago>
 
 <h2 style="color: #FFD700;">Lista de Pagos</h2>
-<a class="btn btn-danger" href="/Pago/Create">Nuevo Pago</a>
 
 <table class="table table-dark table-hover mt-3">
     <thead>
@@ -35,8 +34,14 @@
                     }
                 </td>
                 <td>
-                    <a class="btn btn-warning btn-sm" href="/Pago/Edit/@item.Id">Editar</a>
-                    <a class="btn btn-danger btn-sm" href="/Pago/Delete/@item.Id">Eliminar</a>
+                    @if (Context.Session.GetString("Especialidad") == "Entrenador General")
+                    {
+                        <a href="/Entrenador/Edit/@item.Id"
+                           class="btn btn-warning btn-sm">Editar</a>
+
+                        <a href="/Entrenador/Delete/@item.Id"
+                           class="btn btn-danger btn-sm">Eliminar</a>
+                    }
                 </td>
             </tr>
         }

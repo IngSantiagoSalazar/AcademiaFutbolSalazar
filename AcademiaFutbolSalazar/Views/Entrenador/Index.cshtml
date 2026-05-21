@@ -25,13 +25,12 @@
                             Categoría: @item.Categoria <br />
                             Celular: @item.Celular
                         </p>
-
-                        <a href="/Entrenador/Edit/@item.Id"
-                           class="btn btn-warning btn-sm">Editar</a>
-
                         @if (Context.Session.GetString("Especialidad") == "Entrenador General")
                         {
-                            <a href="/Entrenador/Delete/@item.Id"
+                                     <a href="/Entrenador/Edit/@item.Id"
+                                class="btn btn-warning btn-sm">Editar</a>
+
+                                    <a href="/Entrenador/Delete/@item.Id"
                                class="btn btn-danger btn-sm">Eliminar</a>
                         }
                     </div>

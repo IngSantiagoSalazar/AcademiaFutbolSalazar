@@ -167,6 +167,10 @@ namespace AcademiaFutbolSalazar.Controllers
 
         public IActionResult VerPagos()
         {
+            if (HttpContext.Session.GetString("Usuario") == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var pagoJson = HttpContext.Session.GetString("Pagos");
             List<(Estudiante estudiante, double monto, string mes)> lista = new();
 
