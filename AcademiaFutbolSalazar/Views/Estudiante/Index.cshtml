@@ -11,46 +11,67 @@
         <div class="alert alert-success">@TempData["Mensaje"]</div>
     }
 
-    <h2 class="mb-4 text-center" style="color: #FFD700;">Estudiantes</h2>
-    <a class="btn btn-danger mb-3" href="/Estudiante/Create">
-        + Nuevo Estudiante
-    </a>
-    <a class="btn btn-success mb-3" href="/Estudiante/VerPagos">
-        💰 Ver Pagos Pendientes
-    </a>
+    <div class="text-center mb-4">
+        <h1 class="fw-bold" style="color: #FFD700;">⚽ Estudiantes</h1>
+        <p style="color:#aaa;">Jugadores de la Academia Fútbol Salazar</p>
+        <hr style="border-color: #FFD700; width: 50%; margin: auto;">
+    </div>
+
+    @if (Context.Session.GetString("Especialidad") == "Entrenador General")
+    {
+        <a class="btn fw-bold mb-4 me-2" href="/Estudiante/Create"
+           style="background:#C8102E; color:white; border-radius:12px; padding:10px 20px;">
+            ➕ Nuevo Estudiante
+        </a>
+        <a class="btn fw-bold mb-4" href="/Estudiante/VerPagos"
+           style="background:#FFD700; color:#001f8f; border-radius:12px; padding:10px 20px;">
+            💰 Ver Pagos Pendientes
+        </a>
+    }
 
     <div class="row">
         @foreach (var item in Model)
         {
             <div class="col-md-3 mb-4">
-                <div class="card h-100 shadow bg-dark">
+                <div class="card h-100 shadow"
+                     style="border: 2px solid #FFD700; border-radius:15px; overflow:hidden; background:#1a2744; transition: transform 0.2s;"
+                     onmouseover="this.style.transform='scale(1.03)'"
+                     onmouseout="this.style.transform='scale(1)'">
 
                     <img src="@item.ImagenUrl"
                          class="card-img-top"
                          style="height:250px; width:100%; object-fit:cover; object-position:top;" />
 
                     <div class="card-body">
-                        <h5 class="card-title" style="color: #FFD700;">@item.Nombre @item.Apellido</h5>
+                        <h5 class="card-title fw-bold" style="color: #FFD700;">
+                            @item.Nombre @item.Apellido
+                        </h5>
 
-                        <p class="card-text text-white">
-                            Categoría: @item.Categoria <br />
-                            Celular: @item.Celular <br />
-                            Entrenador: @item.Entrenador?.Nombre @item.Entrenador?.Apellido
+                        <p class="card-text" style="color:#ccc;">
+                            📋 <strong style="color:#FFD700;">Categoría:</strong> @item.Categoria <br />
+                            📱 <strong style="color:#FFD700;">Celular:</strong> @item.Celular <br />
+                            🏋️ <strong style="color:#FFD700;">Entrenador:</strong> @item.Entrenador?.Nombre @item.Entrenador?.Apellido
                         </p>
+
                         @if (Context.Session.GetString("Especialidad") == "Entrenador General")
                         {
-                        <a href="/Estudiante/Edit/@item.Id"
-                           class="btn btn-warning btn-sm">Editar</a>
-
-                  
-                            <a href="/Estudiante/Delete/@item.Id"
-                               class="btn btn-danger btn-sm">Eliminar</a>
+                            <div class="d-flex gap-2 mb-2">
+                                <a href="/Estudiante/Edit/@item.Id" class="btn btn-sm fw-bold"
+                                   style="background:#FFD700; color:#001f8f; border-radius:8px;">
+                                    ✏️ Editar
+                                </a>
+                                <a href="/Estudiante/Delete/@item.Id" class="btn btn-sm fw-bold"
+                                   style="background:#C8102E; color:white; border-radius:8px;">
+                                    🗑️ Eliminar
+                                </a>
+                            </div>
                         }
 
                         <hr style="border-color: #FFD700;">
                         <form asp-action="AgregarPago" method="post">
                             <input type="hidden" name="id" value="@item.Id" />
-                            <select name="mes" class="form-control mb-2 bg-dark text-white">
+                            <select name="mes" class="form-select mb-2"
+                                    style="border-radius:8px; background:#0d1b3e; color:#FFD700; border:1px solid #FFD700;">
                                 <option value="Enero">Enero</option>
                                 <option value="Febrero">Febrero</option>
                                 <option value="Marzo">Marzo</option>
@@ -64,8 +85,13 @@
                                 <option value="Noviembre">Noviembre</option>
                                 <option value="Diciembre">Diciembre</option>
                             </select>
-                            <input type="number" name="monto" value="50000" min="1" class="form-control mb-2 bg-dark text-white" />
-                            <button class="btn btn-success btn-sm w-100">💰 Registrar Pago</button>
+                            <input type="number" name="monto" value="50000" min="1"
+                                   class="form-control mb-2"
+                                   style="border-radius:8px; background:#0d1b3e; color:#FFD700; border:1px solid #FFD700;" />
+                            <button class="btn fw-bold w-100"
+                                    style="background:#FFD700; color:#001f8f; border-radius:8px;">
+                                💰 Registrar Pago
+                            </button>
                         </form>
 
                     </div>

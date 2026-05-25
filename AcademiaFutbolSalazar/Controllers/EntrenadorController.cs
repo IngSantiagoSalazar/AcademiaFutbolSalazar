@@ -39,7 +39,11 @@ namespace AcademiaFutbolSalazar.Controllers
         [HttpPost]
         public IActionResult Create(Entrenador entrenador, IFormFile imagen)
         {
-            
+            if (entrenador.FechaContratacion > DateTime.Now)
+            {
+                ModelState.AddModelError("FechaContratacion", "La fecha de contratación no puede ser mayor a hoy");
+                return View(entrenador);
+            }
 
             if (imagen != null)
             {
@@ -54,11 +58,13 @@ namespace AcademiaFutbolSalazar.Controllers
                 entrenador.ImagenUrl = "/images/" + imagen.FileName;
             }
 
-            entrenador.clave = HashHelper.obtenerHash(entrenador.clave);
+            if (!string.IsNullOrEmpty(entrenador.clave))
+            {
+                entrenador.clave = HashHelper.obtenerHash(entrenador.clave);
+            }
 
             _context.Entrenadores.Add(entrenador);
             _context.SaveChanges();
-
             return RedirectToAction("Index");
         }
 
@@ -74,11 +80,16 @@ namespace AcademiaFutbolSalazar.Controllers
         [HttpPost]
         public IActionResult Edit(Entrenador entrenador, IFormFile imagen)
         {
+            if (entrenador.FechaContratacion > DateTime.Now)
+            {
+                ModelState.AddModelError("FechaContratacion", "La fecha de contratación no puede ser mayor a hoy");
+                return View(entrenador);
+            }
+
             var entrenadorBD = _context.Entrenadores.Find(entrenador.Id);
             if (entrenadorBD == null)
                 return NotFound();
 
-            // Actualizar datos normales
             entrenadorBD.Nombre = entrenador.Nombre;
             entrenadorBD.Apellido = entrenador.Apellido;
             entrenadorBD.Celular = entrenador.Celular;
@@ -87,11 +98,9 @@ namespace AcademiaFutbolSalazar.Controllers
             entrenadorBD.FechaContratacion = entrenador.FechaContratacion;
             entrenadorBD.Activo = entrenador.Activo;
 
-            // Si sube nueva imagen
             if (imagen != null)
             {
                 var carpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
-
                 var ruta = Path.Combine(carpeta, imagen.FileName);
 
                 using (var stream = new FileStream(ruta, FileMode.Create))

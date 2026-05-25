@@ -1,33 +1,56 @@
 ﻿@model List<(AcademiaFutbolSalazar.Models.Estudiante estudiante, double monto, string mes)>
 
 <div class="container mt-4">
-    <h2 style="color: #FFD700;">Pagos Pendientes</h2>
+    <div class="card shadow-sm p-5"
+         style="border:none; border-radius:20px; background:white;">
 
-    <table class="table table-dark table-hover mt-3">
-        <thead>
-            <tr>
-                <th style="color: #FFD700;">Estudiante</th>
-                <th style="color: #FFD700;">Mes</th>
-                <th style="color: #FFD700;">Monto</th>
-                <th style="color: #FFD700;">¿Pagado?</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.estudiante.Nombre @item.estudiante.Apellido</td>
-                    <td>@item.mes</td>
-                    <td>$@item.monto</td>
-                    <td>
-                        <input type="checkbox" disabled checked />
-                        <span class="text-warning">Pendiente de confirmar</span>
-                    </td>
+        <div class="text-center mb-5">
+            <img src="/images/logo.png" style="width:100px;" class="mb-3" />
+            <h1 class="fw-bold" style="color:#001f8f;">Pagos Pendientes</h1>
+            <p style="color:#666; font-size:1.1rem;">Revisa y confirma los pagos antes de guardarlos</p>
+            <hr style="border-color:#001f8f; width:50%; margin:auto;">
+        </div>
+
+        <table class="table table-hover mt-3" style="font-size:1.1rem;">
+            <thead>
+                <tr style="background:#001f8f; color:white;">
+                    <th class="p-3">Estudiante</th>
+                    <th class="p-3">Mes</th>
+                    <th class="p-3">Monto</th>
+                    <th class="p-3">Estado</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td class="p-3 fw-semibold" style="color:#001f8f;">
+                            @item.estudiante.Nombre @item.estudiante.Apellido
+                        </td>
+                        <td class="p-3">@item.mes</td>
+                        <td class="p-3 fw-bold" style="color:#C8102E; font-size:1.2rem;">
+                            $@item.monto
+                        </td>
+                        <td class="p-3">
+                            <span class="badge p-2" style="background:#FFD700; color:#001f8f; font-size:0.95rem;">
+                                ⏳ Pendiente de confirmar
+                            </span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-    <a href="/Estudiante/ConfirmarPagos" class="btn btn-danger">✅ Confirmar Pagos</a>
-    <a href="/Estudiante" class="btn btn-secondary">Volver</a>
+        <div class="d-flex gap-3 mt-4">
+            <a href="/Estudiante/ConfirmarPagos" class="btn fw-bold btn-lg"
+               style="background:#C8102E; color:white; border-radius:12px; padding:12px 30px;">
+                ✅ Confirmar Pagos
+            </a>
+            <a href="/Estudiante" class="btn fw-bold btn-lg"
+               style="background:#001f8f; color:white; border-radius:12px; padding:12px 30px;">
+                ← Volver
+            </a>
+        </div>
+
+    </div>
 </div>

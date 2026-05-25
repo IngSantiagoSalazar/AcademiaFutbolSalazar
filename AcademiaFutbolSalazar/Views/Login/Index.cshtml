@@ -1,21 +1,131 @@
-﻿<h2 style="color: #FFD700;">Login</h2>
+﻿<div class="container d-flex justify-content-center align-items-center"
+     style="min-height: 80vh;">
 
-<form method="post" asp-action="Index" asp-controller="Login">
-    <div class="mb-3">
-        <label style="color: #FFD700;">Nombre</label>
-        <input name="nombre" class="form-control bg-dark text-white" />
+    <div class="card shadow p-4"
+         style="
+        width:100%;
+        max-width:430px;
+
+        border:none;
+        border-radius:22px;
+
+        background: #ffffff;
+
+        border-top: 5px solid #001f8f;
+        border-bottom: 5px solid #C8102E;
+
+        box-shadow:
+        0 10px 30px rgba(0,0,0,0.08);
+        ">
+
+        <!-- LOGO -->
+        <div class="text-center mb-4">
+
+            <img src="/images/logo.png"
+                 style="
+            width:105px;
+            height:105px;
+            object-fit:contain;
+            " />
+
+            <h2 class="fw-bold mt-3"
+                style="
+                color:#001f8f;
+                letter-spacing:0.5px;
+                ">
+                Academia Fútbol Salazar
+            </h2>
+
+            <p style="color:#666;">
+                Inicia sesión para continuar
+            </p>
+
+        </div>
+
+        <!-- FORM -->
+        <form method="post"
+              asp-action="Index"
+              asp-controller="Login">
+
+            <div class="mb-3">
+
+                <label class="form-label fw-semibold"
+                       style="color:#001f8f;">
+
+                    Nombre
+
+                </label>
+
+                <input name="nombre"
+                       class="form-control"
+                       style="
+                border-radius:12px;
+                padding:12px;
+                border:1px solid #dcdcdc;
+                " />
+
+            </div>
+
+            <div class="mb-4">
+
+                <label class="form-label fw-semibold"
+                       style="color:#001f8f;">
+
+                    Clave
+
+                </label>
+
+                <input name="clave"
+                       type="password"
+                       class="form-control"
+                       style="
+                border-radius:12px;
+                padding:12px;
+                border:1px solid #dcdcdc;
+                " />
+
+            </div>
+
+            <!-- BOTONES -->
+            <div class="d-flex gap-2">
+
+                <button type="submit"
+                        class="btn w-50 fw-bold"
+                        style="
+                    background:#001f8f;
+                    color:white;
+                    border-radius:12px;
+                    padding:10px;
+                    ">
+
+                    Ingresar
+
+                </button>
+
+                <a href="/Estudiante/Create"
+                   class="btn w-50 fw-bold"
+                   style="
+                    background:#C8102E;
+                    color:white;
+                    border-radius:12px;
+                    padding:10px;
+                    ">
+
+                    Registrarse
+
+                </a>
+
+            </div>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger mt-4 text-center">
+                    @ViewBag.Error
+                </div>
+            }
+
+        </form>
+
     </div>
 
-    <div class="mb-3">
-        <label style="color: #FFD700;">Clave</label>
-        <input name="clave" type="password" class="form-control bg-dark text-white" />
-    </div>
-
-    <button class="btn btn-danger">Ingresar</button>
-
-    @if (ViewBag.Error != null)
-    {
-        <div class="text-danger mt-2">@ViewBag.Error</div>
-    }
-
-</form>
+</div>

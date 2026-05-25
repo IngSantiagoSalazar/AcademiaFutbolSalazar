@@ -30,10 +30,6 @@ namespace AcademiaFutbolSalazar.Controllers
 
         public IActionResult Create()
         {
-            if (HttpContext.Session.GetString("Usuario") == null)
-            {
-                return RedirectToAction("Index", "Login");
-            }
             ViewBag.Entrenadores = _context.Entrenadores.ToList();
             return View();
         }

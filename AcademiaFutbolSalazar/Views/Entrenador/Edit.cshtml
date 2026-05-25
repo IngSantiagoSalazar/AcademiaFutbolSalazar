@@ -1,71 +1,99 @@
 ﻿@model AcademiaFutbolSalazar.Models.Entrenador
 
-<h2 style="color: #FFD700;">Editar Entrenador</h2>
+<div class="container mt-4 d-flex justify-content-center">
+    <div class="card shadow-sm p-4"
+         style="width:100%; max-width:700px; border:none; border-radius:20px; background:white;">
 
-<form asp-action="Edit" method="post" enctype="multipart/form-data">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input asp-for="Id" type="hidden" />
+        <div class="text-center mb-4">
+            <img src="/images/logo.png" style="width:80px;" class="mb-2" />
+            <h2 class="fw-bold" style="color:#001f8f;">Editar Entrenador</h2>
+            <p style="color:#666;">Actualiza la información del entrenador</p>
+        </div>
 
-    <div class="form-group mt-3">
-        <label style="color: #FFD700;">Nombre</label>
-        <input asp-for="Nombre" class="form-control bg-dark text-white" />
-        <span asp-validation-for="Nombre" class="text-danger"></span>
-    </div>
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <input asp-for="Id" type="hidden" />
 
-    <div class="form-group mt-3">
-        <label style="color: #FFD700;">Apellido</label>
-        <input asp-for="Apellido" class="form-control bg-dark text-white" />
-        <span asp-validation-for="Apellido" class="text-danger"></span>
-    </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold" style="color:#001f8f;">Nombre</label>
+                    <input asp-for="Nombre" class="form-control" style="border-radius:12px; padding:12px;" />
+                    <span asp-validation-for="Nombre" class="text-danger small"></span>
+                </div>
 
-    <div class="form-group mt-3">
-        <label style="color: #FFD700;">Celular</label>
-        <input asp-for="Celular" class="form-control bg-dark text-white" />
-        <span asp-validation-for="Celular" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label style="color: #FFD700;">Especialidad</label>
-        <select asp-for="Especialidad" class="form-control bg-dark text-white">
-            <option value="">Seleccione su especialidad </option>
-            <option value="Entrenador General">Entrenador General</option>
-            <option value="Fisiterapeuta">Fisiterapeuta</option>
-            <option value="Preparador Fisico">Preparador Fisico</option>
-            <option value="Psicologia Deportiva">Psicologia Deportiva</option>
-        </select>
-    </div>
-
-        <div class="mb-3">
-            <label style="color: #FFD700;">Categoría</label>
-            <select asp-for="Categoria" class="form-control bg-dark text-white">
-                <option value="">Seleccione una Categoría</option>
-                <option value="Sub-13">Sub-13</option>
-                <option value="Sub-15">Sub-15</option>
-                <option value="Sub-17">Sub-17</option>
-                <option value="Sub-19">Sub-19</option>
-            </select>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold" style="color:#001f8f;">Apellido</label>
+                    <input asp-for="Apellido" class="form-control" style="border-radius:12px; padding:12px;" />
+                    <span asp-validation-for="Apellido" class="text-danger small"></span>
+                </div>
             </div>
 
-    <div class="form-group mt-3">
-        <label style="color: #FFD700;">Fecha Contratación</label>
-        <input asp-for="FechaContratacion" class="form-control bg-dark text-white" type="date" />
-        <span asp-validation-for="FechaContratacion" class="text-danger"></span>
-    </div>
-            <div class="mb-3">
-                <label style="color: #FFD700;">Clave</label>
-                <input asp-for="clave" type="password" class="form-control bg-dark text-white" />
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold" style="color:#001f8f;">Celular</label>
+                    <input asp-for="Celular" class="form-control" style="border-radius:12px; padding:12px;" />
+                    <span asp-validation-for="Celular" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold" style="color:#001f8f;">Fecha Contratación</label>
+                    <input asp-for="FechaContratacion" type="date" class="form-control" style="border-radius:12px; padding:12px;" />
+                    <span asp-validation-for="FechaContratacion" class="text-danger small"></span>
+                </div>
             </div>
 
-    <div class="mb-3">
-        <label style="color: #FFD700;">Imagen actual</label><br />
-        <img src="@Model.ImagenUrl" width="150" class="mb-2" />
-    </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold" style="color:#001f8f;">Especialidad</label>
+                    <select asp-for="Especialidad" class="form-select" style="border-radius:12px; padding:12px;">
+                        <option value="">Seleccione una especialidad</option>
+                        <option value="Entrenador General">Entrenador General</option>
+                        <option value="Fisiterapeuta">Fisiterapeuta</option>
+                        <option value="Preparador Fisico">Preparador Fisico</option>
+                        <option value="Psicologia Deportiva">Psicologia Deportiva</option>
+                    </select>
+                </div>
 
-    <div class="mb-3">
-        <label style="color: #FFD700;">Nueva imagen (opcional)</label>
-        <input type="file" name="imagen" class="form-control bg-dark text-white" />
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold" style="color:#001f8f;">Categoría</label>
+                    <select asp-for="Categoria" class="form-select" style="border-radius:12px; padding:12px;">
+                        <option value="">Seleccione una Categoría</option>
+                        <option value="Sub-13">Sub-13</option>
+                        <option value="Sub-15">Sub-15</option>
+                        <option value="Sub-17">Sub-17</option>
+                        <option value="Sub-19">Sub-19</option>
+                        <option value="Sub-21">Sub-21</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold" style="color:#001f8f;">Clave</label>
+                    <input asp-for="clave" type="password" class="form-control" style="border-radius:12px; padding:12px;" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold" style="color:#001f8f;">Nueva imagen (opcional)</label>
+                    <input type="file" name="imagen" class="form-control" style="border-radius:12px; padding:10px;" />
+                </div>
+            </div>
+
+            <div class="mb-4 text-center">
+                <label class="form-label fw-semibold" style="color:#001f8f;">Imagen actual</label><br />
+                <img src="@Model.ImagenUrl" style="width:150px; height:150px; object-fit:cover; border-radius:50%; border: 3px solid #FFD700;" class="mb-2" />
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn fw-bold"
+                        style="background:#C8102E; color:white; border-radius:12px; padding:10px 18px;">
+                    💾 Guardar
+                </button>
+                <a href="/Entrenador" class="btn fw-bold"
+                   style="background:#001f8f; color:white; border-radius:12px; padding:10px 18px;">
+                    ← Volver
+                </a>
+            </div>
+
+        </form>
     </div>
-    <hr style="border-color: #FFD700;">
-    <button type="submit" class="btn btn-danger">Guardar</button>
-    <a href="/Entrenador" class="btn btn-secondary">Volver</a>
-</form>
+</div>

@@ -29,9 +29,11 @@ namespace AcademiaFutbolSalazar.Controllers
 
             if (entrenador != null)
             {
+                // ❌ quita este if duplicado
                 HttpContext.Session.SetString("Usuario", entrenador.Nombre);
                 HttpContext.Session.SetString("Rol", "Entrenador");
-                HttpContext.Session.SetString("Especialidad", entrenador.Especialidad ?? ""); // ✅
+                HttpContext.Session.SetString("Especialidad", entrenador.Especialidad ?? "");
+                HttpContext.Session.SetString("Imagen", entrenador.ImagenUrl ?? "");
                 return RedirectToAction("Index", "Home");
             }
 
@@ -42,6 +44,7 @@ namespace AcademiaFutbolSalazar.Controllers
             {
                 HttpContext.Session.SetString("Usuario", estudiante.Nombre);
                 HttpContext.Session.SetString("Rol", "Estudiante");
+                HttpContext.Session.SetString("Imagen", estudiante.ImagenUrl);
                 return RedirectToAction("Index", "Home");
             }
 

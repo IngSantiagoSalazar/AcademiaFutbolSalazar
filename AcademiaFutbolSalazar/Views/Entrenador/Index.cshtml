@@ -2,36 +2,56 @@
 
 <div class="container mt-4">
 
-    <h2 class="mb-4 text-center" style="color: #FFD700;">Entrenadores</h2>
-    <a class="btn btn-danger mb-3" href="/Entrenador/Create">
-        + Nuevo Entrenador
-    </a>
+    <div class="text-center mb-4">
+        <h1 class="fw-bold" style="color: #FFD700;">🏋️ Entrenadores</h1>
+        <p style="color:#aaa;">Equipo técnico de la Academia Fútbol Salazar</p>
+        <hr style="border-color: #FFD700; width: 50%; margin: auto;">
+    </div>
+
+    @if (Context.Session.GetString("Especialidad") == "Entrenador General")
+    {
+        <a class="btn fw-bold mb-4" href="/Entrenador/Create"
+           style="background:#C8102E; color:white; border-radius:12px; padding:10px 20px;">
+            ➕ Nuevo Entrenador
+        </a>
+    }
 
     <div class="row">
         @foreach (var item in Model)
         {
             <div class="col-md-3 mb-4">
-                <div class="card h-100 shadow bg-dark">
+                <div class="card h-100 shadow"
+                     style="border: 2px solid #FFD700; border-radius:15px; overflow:hidden; background:#1a2744; transition: transform 0.2s;"
+                     onmouseover="this.style.transform='scale(1.03)'"
+                     onmouseout="this.style.transform='scale(1)'">
 
                     <img src="@item.ImagenUrl"
                          class="card-img-top"
                          style="height:250px; width:100%; object-fit:cover; object-position:top;" />
 
                     <div class="card-body">
-                        <h5 class="card-title" style="color: #FFD700;">@item.Nombre @item.Apellido</h5>
+                        <h5 class="card-title fw-bold" style="color: #FFD700;">
+                            @item.Nombre @item.Apellido
+                        </h5>
 
-                        <p class="card-text text-white">
-                            Especialidad: @item.Especialidad <br />
-                            Categoría: @item.Categoria <br />
-                            Celular: @item.Celular
+                        <p class="card-text" style="color:#ccc;">
+                            🎯 <strong style="color:#FFD700;">Especialidad:</strong> @item.Especialidad <br />
+                            📋 <strong style="color:#FFD700;">Categoría:</strong> @item.Categoria <br />
+                            📱 <strong style="color:#FFD700;">Celular:</strong> @item.Celular
                         </p>
+
                         @if (Context.Session.GetString("Especialidad") == "Entrenador General")
                         {
-                                     <a href="/Entrenador/Edit/@item.Id"
-                                class="btn btn-warning btn-sm">Editar</a>
-
-                                    <a href="/Entrenador/Delete/@item.Id"
-                               class="btn btn-danger btn-sm">Eliminar</a>
+                            <div class="d-flex gap-2 mt-2">
+                                <a href="/Entrenador/Edit/@item.Id" class="btn btn-sm fw-bold"
+                                   style="background:#FFD700; color:#001f8f; border-radius:8px;">
+                                    ✏️ Editar
+                                </a>
+                                <a href="/Entrenador/Delete/@item.Id" class="btn btn-sm fw-bold"
+                                   style="background:#C8102E; color:white; border-radius:8px;">
+                                    🗑️ Eliminar
+                                </a>
+                            </div>
                         }
                     </div>
                 </div>
