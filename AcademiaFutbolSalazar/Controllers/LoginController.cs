@@ -44,7 +44,8 @@ namespace AcademiaFutbolSalazar.Controllers
             {
                 HttpContext.Session.SetString("Usuario", estudiante.Nombre);
                 HttpContext.Session.SetString("Rol", "Estudiante");
-                HttpContext.Session.SetString("Imagen", estudiante.ImagenUrl);
+                HttpContext.Session.SetString("Imagen", estudiante.ImagenUrl ?? "");
+                HttpContext.Session.SetString("EstudianteId", estudiante.Id.ToString()); // ✅
                 return RedirectToAction("Index", "Home");
             }
 

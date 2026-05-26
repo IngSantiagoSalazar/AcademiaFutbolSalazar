@@ -1,49 +1,82 @@
 ﻿@model List<AcademiaFutbolSalazar.Models.Pago>
 
-<h2 style="color: #FFD700;">Lista de Pagos</h2>
+<div class="container mt-4">
 
-<table class="table table-dark table-hover mt-3">
-    <thead>
-        <tr>
-            <th style="color: #FFD700;">Estudiante</th>
-            <th style="color: #FFD700;">Monto</th>
-            <th style="color: #FFD700;">Fecha Pago</th>
-            <th style="color: #FFD700;">Método Pago</th>
-            <th style="color: #FFD700;">Descripción</th>
-            <th style="color: #FFD700;">Pagado</th>
-            <th style="color: #FFD700;">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Estudiante?.Nombre @item.Estudiante?.Apellido</td>
-                <td>@item.Monto</td>
-                <td>@item.FechaPago.ToString("dd/MM/yyyy")</td>
-                <td>@item.MetodoPago</td>
-                <td>@item.Descripcion</td>
-                <td>
-                    @if (item.Pagado)
-                    {
-                        <span class="badge bg-success">Pagado</span>
-                    }
-                    else
-                    {
-                        <span class="badge bg-danger">Pendiente</span>
-                    }
-                </td>
-                <td>
+    <div class="text-center mb-4">
+        <h1 class="fw-bold" style="color:#001f8f;">💰 Pagos</h1>
+        <p style="color:#888;">Historial de pagos de la Academia Fútbol Salazar</p>
+        <hr style="border-color:#001f8f; width:50%; margin:auto;">
+    </div>
+
+    @if (Context.Session.GetString("Especialidad") == "Entrenador General")
+    {
+        <a class="btn fw-bold mb-4" href="/Pago/Create"
+           style="background:#C8102E; color:white; border-radius:12px; padding:10px 20px;">
+            ➕ Nuevo Pago
+        </a>
+    }
+
+    <div class="card border-0 shadow-sm" style="border-radius:16px; overflow:hidden;">
+        <table class="table table-hover mb-0">
+            <thead style="background:#001f8f; color:white;">
+                <tr>
+                    <th class="p-3">Estudiante</th>
+                    <th class="p-3">Monto</th>
+                    <th class="p-3">Fecha Pago</th>
+                    <th class="p-3">Método Pago</th>
+                    <th class="p-3">Mes</th>
+                    <th class="p-3">Estado</th>
                     @if (Context.Session.GetString("Especialidad") == "Entrenador General")
                     {
-                        <a href="/Pago/Edit/@item.Id"
-                           class="btn btn-warning btn-sm">Editar</a>
-
-                        <a href="/Pago/Delete/@item.Id"
-                           class="btn btn-danger btn-sm">Eliminar</a>
+                        <th class="p-3">Acciones</th>
                     }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td class="p-3 fw-semibold" style="color:#001f8f;">
+                            @item.Estudiante?.Nombre @item.Estudiante?.Apellido
+                        </td>
+                        <td class="p-3 fw-bold" style="color:#C8102E;">
+                            $@item.Monto
+                        </td>
+                        <td class="p-3" style="color:#666;">
+                            @item.FechaPago.ToString("dd/MM/yyyy")
+                        </td>
+                        <td class="p-3" style="color:#666;">
+                            @item.MetodoPago
+                        </td>
+                        <td class="p-3" style="color:#666;">
+                            @item.Descripcion
+                        </td>
+                        <td class="p-3">
+                            @if (item.Pagado)
+                            {
+                                <span class="badge p-2" style="background:#001f8f; font-size:0.85rem;">✅ Pagado</span>
+                            }
+                            else
+                            {
+                                <span class="badge p-2" style="background:#C8102E; font-size:0.85rem;">⏳ Pendiente</span>
+                            }
+                        </td>
+                        @if (Context.Session.GetString("Especialidad") == "Entrenador General")
+                        {
+                            <td class="p-3">
+                                <a href="/Pago/Edit/@item.Id" class="btn btn-sm fw-bold"
+                                   style="background:#FFD700; color:#001f8f; border-radius:8px;">
+                                    ✏️ Editar
+                                </a>
+                                <a href="/Pago/Delete/@item.Id" class="btn btn-sm fw-bold"
+                                   style="background:#C8102E; color:white; border-radius:8px;">
+                                    🗑️ Eliminar
+                                </a>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
