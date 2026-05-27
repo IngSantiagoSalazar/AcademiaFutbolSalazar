@@ -39,34 +39,56 @@ namespace AcademiaFutbolSalazar.Controllers
         [HttpPost]
         public IActionResult Create(Pago pago)
         {
+            if (pago.FechaPago > DateTime.Now)
+            {
+                ModelState.AddModelError("FechaPago", "La fecha de pago no puede ser mayor a hoy");
+                ViewBag.Estudiantes = _context.Estudiantes.ToList();
+                return View(pago);
+            }
+
+            // ✅ Validar mes duplicado
+            var pagoExiste = _context.Pagos
+                .Any(p => p.EstudianteId == pago.EstudianteId
+                       && p.Descripcion == pago.Descripcion
+                       && p.Pagado == true);
+
+            if (pagoExiste)
+            {
+                ModelState.AddModelError("Descripcion", "Este estudiante ya pagó ese mes");
+                ViewBag.Estudiantes = _context.Estudiantes.ToList();
+                return View(pago);
+            }
+
             _context.Pagos.Add(pago);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        public IActionResult Edit(int id)
-        {
-            if (HttpContext.Session.GetString("Usuario") == null)
-            {
-                return RedirectToAction("Index", "Login");
-            }
-            var pago = _context.Pagos.Find(id);
-            ViewBag.Estudiantes = _context.Estudiantes.ToList();
-            return View(pago);
-        }
-
         [HttpPost]
         public IActionResult Edit(Pago pago)
         {
-            _context.Pagos.Update(pago);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
-        }
+            if (pago.FechaPago > DateTime.Now)
+            {
+                ModelState.AddModelError("FechaPago", "La fecha de pago no puede ser mayor a hoy");
+                ViewBag.Estudiantes = _context.Estudiantes.ToList();
+                return View(pago);
+            }
 
-        public IActionResult Delete(int id)
-        {
-            var pago = _context.Pagos.Find(id);
-            _context.Pagos.Remove(pago);
+            // ✅ Validar mes duplicado (excluyendo el pago actual)
+            var pagoExiste = _context.Pagos
+                .Any(p => p.EstudianteId == pago.EstudianteId
+                       && p.Descripcion == pago.Descripcion
+                       && p.Pagado == true
+                       && p.Id != pago.Id); // ✅ excluye el pago que estamos editando
+
+            if (pagoExiste)
+            {
+                ModelState.AddModelError("Descripcion", "Este estudiante ya pagó ese mes");
+                ViewBag.Estudiantes = _context.Estudiantes.ToList();
+                return View(pago);
+            }
+
+            _context.Pagos.Update(pago);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }

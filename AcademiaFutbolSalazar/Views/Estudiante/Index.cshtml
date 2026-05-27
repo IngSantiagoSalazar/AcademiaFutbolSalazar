@@ -1,5 +1,10 @@
 ﻿@model List<AcademiaFutbolSalazar.Models.Estudiante>
 
+@{
+    var estudianteIdSesion = Context.Session.GetString("EstudianteId");
+    var rol = Context.Session.GetString("Rol");
+}
+
 <div class="container mt-4">
 
     @if (TempData["Error"] != null)
@@ -67,32 +72,35 @@
                             </div>
                         }
 
-                        <hr style="border-color: #FFD700;">
-                        <form asp-action="AgregarPago" method="post">
-                            <input type="hidden" name="id" value="@item.Id" />
-                            <select name="mes" class="form-select mb-2"
-                                    style="border-radius:8px; background:#0d1b3e; color:#FFD700; border:1px solid #FFD700;">
-                                <option value="Enero">Enero</option>
-                                <option value="Febrero">Febrero</option>
-                                <option value="Marzo">Marzo</option>
-                                <option value="Abril">Abril</option>
-                                <option value="Mayo">Mayo</option>
-                                <option value="Junio">Junio</option>
-                                <option value="Julio">Julio</option>
-                                <option value="Agosto">Agosto</option>
-                                <option value="Septiembre">Septiembre</option>
-                                <option value="Octubre">Octubre</option>
-                                <option value="Noviembre">Noviembre</option>
-                                <option value="Diciembre">Diciembre</option>
-                            </select>
-                            <input type="number" name="monto" value="50000" min="1"
-                                   class="form-control mb-2"
-                                   style="border-radius:8px; background:#0d1b3e; color:#FFD700; border:1px solid #FFD700;" />
-                            <button class="btn fw-bold w-100"
-                                    style="background:#FFD700; color:#001f8f; border-radius:8px;">
-                                💰 Registrar Pago
-                            </button>
-                        </form>
+                        @if (rol == "Entrenador" || (rol == "Estudiante" && estudianteIdSesion == item.Id.ToString()))
+                        {
+                            <hr style="border-color: #FFD700;">
+                            <form asp-action="AgregarPago" method="post">
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <select name="mes" class="form-select mb-2"
+                                        style="border-radius:8px; background:#0d1b3e; color:#FFD700; border:1px solid #FFD700;">
+                                    <option value="Enero">Enero</option>
+                                    <option value="Febrero">Febrero</option>
+                                    <option value="Marzo">Marzo</option>
+                                    <option value="Abril">Abril</option>
+                                    <option value="Mayo">Mayo</option>
+                                    <option value="Junio">Junio</option>
+                                    <option value="Julio">Julio</option>
+                                    <option value="Agosto">Agosto</option>
+                                    <option value="Septiembre">Septiembre</option>
+                                    <option value="Octubre">Octubre</option>
+                                    <option value="Noviembre">Noviembre</option>
+                                    <option value="Diciembre">Diciembre</option>
+                                </select>
+                                <input type="number" name="monto" value="50000" min="1"
+                                       class="form-control mb-2"
+                                       style="border-radius:8px; background:#0d1b3e; color:#FFD700; border:1px solid #FFD700;" />
+                                <button class="btn fw-bold w-100"
+                                        style="background:#FFD700; color:#001f8f; border-radius:8px;">
+                                    💰 Registrar Pago
+                                </button>
+                            </form>
+                        }
 
                     </div>
                 </div>

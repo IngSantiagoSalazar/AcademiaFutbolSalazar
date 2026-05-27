@@ -116,7 +116,6 @@ namespace AcademiaFutbolSalazar.Controllers
         [HttpPost]
         public IActionResult AgregarPago(int id, double monto, string mes)
         {
-            // VALIDAR QUE NO HAYA PAGADO ESE MES YA EN LA BD
             var pagoExiste = _context.Pagos
                 .Any(p => p.EstudianteId == id && p.Descripcion == mes && p.Pagado == true);
 
@@ -156,8 +155,15 @@ namespace AcademiaFutbolSalazar.Controllers
             }
 
             HttpContext.Session.SetString("Pagos", JsonSerializer.Serialize(pagos));
-
             TempData["Mensaje"] = "Pago de " + mes + " agregado correctamente";
+
+            // ✅ Si es estudiante lo manda directo a VerPagos
+            var rol = HttpContext.Session.GetString("Rol");
+            if (rol == "Estudiante")
+            {
+                return RedirectToAction("VerPagos");
+            }
+
             return RedirectToAction("Index");
         }
 
